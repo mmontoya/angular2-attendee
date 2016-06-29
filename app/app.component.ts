@@ -1,6 +1,8 @@
 import {Component} from '@angular/core';
 import {Attendee} from './attendee';
 import {AttendeeDetailComponent} from './attendee-detail.component';
+import {AttendeeService} from "./attendee.service";
+import {OnInit} from '@angular/core';
 
 @Component({
     selector: 'my-app',
@@ -78,30 +80,30 @@ import {AttendeeDetailComponent} from './attendee-detail.component';
       }
 
     `],
-  directives: [AttendeeDetailComponent]
+  directives: [AttendeeDetailComponent],
+  providers: [AttendeeService]
 })
 
-export class AppComponent {
+export class AppComponent implements OnInit {
+
+  ngOnInit(){
+    this.getHeroes();
+  }
 
   title:string = 'Plataci Attendeess';
-  public attendees = ATTENDEES;
 
   selectedAttendee: Attendee;
 
   onSelect(attendee: Attendee) { this.selectedAttendee = attendee; }
+
+  attendees: Attendee[];
+
+  constructor(private attendeeService: AttendeeService){
+
+  }
+
+  getHeroes(){
+    this.attendees = this.attendeeService.getAttendees();
+  }
 }
-
-const ATTENDEES: Attendee[] = [
-  {id: 1, name: 'Federico' },
-  {id: 2, name: 'Angelo' },
-  {id: 3, name: 'Abramova' },
-  {id: 4, name: 'Gaia' },
-  {id: 5, name: 'Michael' },
-  {id: 6, name: 'Finu' },
-  {id: 7, name: 'Matteo' },
-  {id: 8, name: 'Carmen' }
-];
-
-
-
 
