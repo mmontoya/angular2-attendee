@@ -7,7 +7,7 @@ import {ATTENDEES} from './mock-attendees';
 export class AttendeeService{
 
   getAttendees(){
-    return ATTENDEES;
+    return Promise.resolve(ATTENDEES);
   }
 
 }

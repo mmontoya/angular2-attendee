@@ -87,7 +87,7 @@ import {OnInit} from '@angular/core';
 export class AppComponent implements OnInit {
 
   ngOnInit(){
-    this.getHeroes();
+    this.getAttendees();
   }
 
   title:string = 'Plataci Attendeess';
@@ -102,8 +102,8 @@ export class AppComponent implements OnInit {
 
   }
 
-  getHeroes(){
-    this.attendees = this.attendeeService.getAttendees();
+  getAttendees(){
+    this.attendeeService.getAttendees().then(attendees => this.attendees = attendees);
   }
 }
 
