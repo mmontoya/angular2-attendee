@@ -1,9 +1,6 @@
 import {Component} from '@angular/core';
-
-export class Attendee {
-  name: string;
-  id : number;
-}
+import {Attendee} from './attendee';
+import {AttendeeDetailComponent} from './attendee-detail.component';
 
 @Component({
     selector: 'my-app',
@@ -18,14 +15,8 @@ export class Attendee {
           <span class="badge">{{attendee.id}}</span> {{attendee.name}}
         </li>
       </ul>
-      <div *ngIf="selectedAttendee">
-        <h2>{{selectedAttendee.name}} details!</h2>
-        <div><label>id: </label>{{selectedAttendee.id}}</div>
-        <div>
-          <label>name: </label>
-          <input [(ngModel)]="selectedAttendee.name" placeholder="name">
-        </div>
-      </div>
+      <my-attendee-detail [attendee]="selectedAttendee"></my-attendee-detail>
+
       `,
     styles: [`
 
@@ -86,7 +77,8 @@ export class Attendee {
 
       }
 
-    `]
+    `],
+  directives: [AttendeeDetailComponent]
 })
 
 export class AppComponent {
