@@ -103,7 +103,7 @@ export class AppComponent implements OnInit {
   }
 
   getAttendees(){
-    this.attendeeService.getAttendees().then(attendees => this.attendees = attendees);
+    this.attendeeService.getAttendeesSlowly().then(attendees => this.attendees = attendees);
   }
 }
 

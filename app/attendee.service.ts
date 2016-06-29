@@ -10,4 +10,8 @@ export class AttendeeService{
     return Promise.resolve(ATTENDEES);
   }
 
+  getAttendeesSlowly(){
+    return new Promise<Attendee[]>(resolve => setTimeout(()=> resolve(ATTENDEES),2000))
+  }
+
 }
