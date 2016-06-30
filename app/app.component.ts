@@ -1,14 +1,15 @@
 import { Component }       from '@angular/core';
+import { ROUTER_DIRECTIVES } from '@angular/router';
 import { AttendeeService }     from './attendee.service';
-import { AttendeesComponent } from './attendees.component';
 
 @Component({
   selector: 'my-app',
   template: `
     <h1>{{title}}</h1>
-    <my-attendees></my-attendees>
+    <a [routerLink]="['/attendees']">Attendees</a>
+    <router-outlet></router-outlet>
   `,
-  directives: [AttendeesComponent],
+  directives: [ROUTER_DIRECTIVES],
   providers: [
     AttendeeService
   ]

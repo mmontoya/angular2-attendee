@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {ATTENDEES} from './mock-attendees';
+//import {Attendee} from './attendee';
 
 
 
@@ -11,7 +12,7 @@ export class AttendeeService{
   }
 
   getAttendeesSlowly(){
-    return new Promise<Attendee[]>(resolve => setTimeout(()=> resolve(ATTENDEES),2000))
+    return new Promise<Attendee[]>(resolve => setTimeout(()=> resolve(ATTENDEES), 2000))
   }
 
 }
