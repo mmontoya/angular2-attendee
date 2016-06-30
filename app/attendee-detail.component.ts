@@ -1,22 +1,39 @@
-import { Component, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import {Attendee} from './attendee';
+import { AttendeeService } from './attendee.service';
 
 
 @Component({
   selector: 'my-attendee-detail',
-  template: `
-    <div *ngIf="attendee">
-      <h2>{{attendee.name}} details!</h2>
-      <div><label>id: </label>{{attendee.id}}</div>
-        <div>
-          <label>name: </label>
-          <input [(ngModel)]="attendee.name" placeholder="name" />
-        </div>
-    </div>
-  `
+  templateUrl: 'app/attendee-detail.component.html',
+  styleUrls: ['app/attendee-detail.component.css']
+
 })
 
-export class AttendeeDetailComponent{
-  @Input()
+export class AttendeeDetailComponent implements OnInit, OnDestroy{
+
   attendee: Attendee;
+  sub:any;
+
+  constructor(
+    private attendeeService: AttendeeService,
+    private route: ActivatedRoute) {
+  }
+
+  ngOnInit(){
+    this.sub = this.route.params.subscribe(params => {
+      let id = +params['id'];
+      this.attendeeService.getAttendee(id)
+        .then(attendee => this.attendee = attendee);
+    });
+  }
+
+  ngOnDestroy(){
+    this.sub.unsubscribe();
+  }
+
+  goBack() {
+    window.history.back();
+  }
 }

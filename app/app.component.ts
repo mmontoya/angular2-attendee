@@ -6,9 +6,14 @@ import { AttendeeService }     from './attendee.service';
   selector: 'my-app',
   template: `
     <h1>{{title}}</h1>
-    <a [routerLink]="['/attendees']">Attendees</a>
+    <nav>
+      <a [routerLink]="['/dashboard']" routerLinkActive="active">Dashboard</a>
+      <a [routerLink]="['/attendees']" routerLinkActive="active">Attendees</a>
+    </nav>
+
     <router-outlet></router-outlet>
   `,
+  styleUrls:['app/app.component.css'],
   directives: [ROUTER_DIRECTIVES],
   providers: [
     AttendeeService

@@ -1,0 +1,8 @@
+<h3>Cool Attendees</h3>
+<div class="grid grid-pad">
+  <div *ngFor="let attendee of attendees" (click)="gotoDetail(attendee)" class="col-1-4">
+    <div class="module hero">
+      <h4>{{attendee.name}}</h4>
+    </div>
+  </div>
+</div>

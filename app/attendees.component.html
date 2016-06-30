@@ -1,0 +1,14 @@
+<h2>My Attendees</h2>
+<ul class="heroes">
+  <li *ngFor="let attendee of attendees"
+      [class.selected]="attendee === selectedAttendee"
+      (click)="onSelect(attendee)">
+    <span class="badge">{{attendee.id}}</span> {{attendee.name}}
+  </li>
+</ul>
+<div *ngIf="selectedAttendee">
+  <h2>
+    {{selectedAttendee.name | uppercase}} is super cool
+  </h2>
+  <button (click)="gotoDetail()">View Details</button>
+</div>
