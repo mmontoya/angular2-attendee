@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, EventEmitter, OnInit, OnDestroy, Output, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import {Attendee} from './attendee';
 import { AttendeeService } from './attendee.service';
@@ -13,6 +13,10 @@ import { AttendeeService } from './attendee.service';
 
 export class AttendeeDetailComponent implements OnInit, OnDestroy{
 
+  @Input() attendee:Attendee;
+  @Output() close = new EventEmitter();
+  error: any;
+  navigated = false;
   attendee: Attendee;
   sub:any;
 
@@ -21,19 +25,39 @@ export class AttendeeDetailComponent implements OnInit, OnDestroy{
     private route: ActivatedRoute) {
   }
 
-  ngOnInit(){
+  ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
-      let id = +params['id'];
-      this.attendeeService.getAttendee(id)
-        .then(attendee => this.attendee = attendee);
+      if (params['id'] !== undefined) {
+        let id = +params['id'];
+        this.navigated = true;
+        this.attendeeService.getAttendee(id)
+          .then(attendee => this.attendee = attendee);
+      } else {
+        this.navigated = false;
+        this.attendee = new Attendee();
+      }
     });
   }
+
 
   ngOnDestroy(){
     this.sub.unsubscribe();
   }
 
-  goBack() {
-    window.history.back();
+  goBack(savedAttendee: Attendee = null) {
+    this.close.emit(savedAttendee);
+    if (this.navigated) { window.history.back(); }
   }
+
+
+  save() {
+    this.attendeeService
+      .save(this.attendee)
+      .then(attendee => {
+        this.attendee = attendee; // saved hero, w/ id if new
+        this.goBack(attendee);
+      })
+      .catch(error => this.error = error); // TODO: Display error message
+  }
+
 }

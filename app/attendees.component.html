@@ -3,9 +3,19 @@
   <li *ngFor="let attendee of attendees"
       [class.selected]="attendee === selectedAttendee"
       (click)="onSelect(attendee)">
-    <span class="badge">{{attendee.id}}</span> {{attendee.name}}
+    <span class="hero-element">
+      <span class="badge">{{attendee.id}}</span> {{attendee.name}}
+    </span>
+    <button class="delete-button" (click)="deleteAttendee(attendee, $event)">Delete</button>
   </li>
 </ul>
+
+<div class="error" *ngIf="error">{{error}}</div>
+<button (click)="addAttendee()">Add</button>
+<div *ngIf="addingAttendee">
+  <my-attendee-detail (close)="close($event)"></my-attendee-detail>
+</div>
+
 <div *ngIf="selectedAttendee">
   <h2>
     {{selectedAttendee.name | uppercase}} is super cool
